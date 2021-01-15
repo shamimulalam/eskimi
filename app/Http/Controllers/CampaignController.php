@@ -13,7 +13,7 @@ class CampaignController extends Controller
 {
     public function index()
     {
-        $campaigns = Campaign::orderBy('id','desc')->get();
+        $campaigns = Campaign::with('creatives')->orderBy('id','desc')->get();
         return response()->json($campaigns);
     }
     public function store(Request $request)
@@ -76,7 +76,7 @@ class CampaignController extends Controller
             $campaign->daily_budget = $request->daily_budget;
             $campaign->save();
 
-            return response('created',201);
+            return response('updated',204);
         }catch (\Exception $exception) {
             Log::error("CampaignController@update($id) :: ".$exception->getMessage());
             return response($exception->getMessage(),400);
