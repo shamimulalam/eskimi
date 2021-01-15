@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
     name: "list",
     data() {
@@ -66,10 +68,20 @@ export default {
         async getCampaignList(){
             const response = await this.callApi(
                 'get',
-                '/campaign/index'
+                '/api/campaign/index'
             );
             if(response.status == 200){
-                this.campaigns = response.data
+                this.campaigns = response.data.map(campaign => {
+                    return {
+                        id: campaign.id,
+                        name: campaign.name,
+                        from: moment(campaign.from).format("Do MMMM YYYY"),
+                        to: moment(campaign.to).format("Do MMMM YYYY"),
+                        daily_budget: '$'+parseFloat(campaign.daily_budget).toFixed(2),
+                        total_budget: '$'+parseFloat(campaign.total_budget).toFixed(2),
+                        created_at: moment(campaign.created_at).format("Do MMMM YYYY, h:mm:ss a"),
+                    }
+                })
             }
         },
 

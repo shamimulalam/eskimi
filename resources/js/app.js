@@ -18,6 +18,9 @@ import { store } from './store';
 import VueFlashMessage from '@smartweb/vue-flash-message';
 Vue.use(VueFlashMessage);
 
+import moment from 'moment'
+Vue.use(moment)
+
 import common from "./common"
 Vue.mixin(common)
 

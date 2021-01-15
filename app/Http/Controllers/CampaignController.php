@@ -24,7 +24,8 @@ class CampaignController extends Controller
             'toDate'        => 'required|date',
             'dailyBudget'   => 'required|numeric',
             'totalBudget'   => 'required|numeric',
-//            'creatives.*' => 'required|mimes:jpeg,png',
+            'creatives'     => 'required',
+            'creatives.*'   => 'mimes:jpeg,png',
         ]);
         DB::beginTransaction();
         try {

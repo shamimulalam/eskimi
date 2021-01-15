@@ -8,16 +8,15 @@
                         id="name"
                         label="Name :"
                         label-for="name"
-                        description="Enter campaign name here"
                     >
                         <b-form-input
                             id="name"
                             v-model="form.name"
                             type="text"
                         ></b-form-input>
-                        <v-form-invalid-feedback v-if="validationErrors.name">
+                        <span class="text-danger" v-if="validationErrors.name">
                             {{ validationErrors.name[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -27,18 +26,18 @@
                     <b-form-group>
                         <label for="fromDate">From</label>
                         <b-form-datepicker id="fromDate" v-model="form.fromDate" class="mb-2"></b-form-datepicker>
-                        <v-form-invalid-feedback v-if="validationErrors.from">
+                        <span class="text-danger" v-if="validationErrors.fromDate">
                             {{ validationErrors.fromDate[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
                 <b-col>
                     <b-form-group>
                         <label for="toDate">To</label>
                         <b-form-datepicker id="toDate" v-model="form.toDate" class="mb-2"></b-form-datepicker>
-                        <v-form-invalid-feedback v-if="validationErrors.to">
+                        <span class="text-danger" v-if="validationErrors.toDate">
                             {{ validationErrors.toDate[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -52,9 +51,9 @@
                             id="totalBudget"
                             v-model="form.totalBudget"
                         ></b-form-input>
-                        <v-form-invalid-feedback v-if="validationErrors.totalBudget">
+                        <span class="text-danger" v-if="validationErrors.totalBudget">
                             {{ validationErrors.totalBudget[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
                 <b-col>
@@ -66,24 +65,29 @@
                             id="dailyBudget"
                             v-model="form.dailyBudget"
                         ></b-form-input>
-                        <v-form-invalid-feedback v-if="validationErrors.dailyBudget">
+                        <span class="text-danger" v-if="validationErrors.dailyBudget">
                             {{ validationErrors.dailyBudget[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
             </b-row>
             <b-row>
                 <b-col>
-                    <label for="creatives">Creatives</label>
-                    <b-form-file
-                        id="creatives"
-                        v-model="form.creatives"
-                        placeholder="Choose files or drop it here..."
-                        drop-placeholder="Drop file here..."
-                        multiple
-                        ref="creatives"
-                        @change="grabFile"
-                    ></b-form-file>
+                    <b-form-group>
+                        <label for="creatives">Creatives</label>
+                        <b-form-file
+                            id="creatives"
+                            v-model="form.creatives"
+                            placeholder="Choose files or drop it here..."
+                            drop-placeholder="Drop file here..."
+                            multiple
+                            ref="creatives"
+                            @change="grabFile"
+                        ></b-form-file>
+                        <span class="text-danger" v-if="validationErrors.creatives">
+                            {{ validationErrors.creatives[0] }}
+                        </span>
+                    </b-form-group>
                 </b-col>
             </b-row>
             <br>
@@ -134,7 +138,7 @@ export default {
             }
             const response = await this.callApi(
                 'post',
-                '/campaign/store',
+                '/api/campaign/store',
                 formData
                 );
             switch (response.status){
@@ -145,7 +149,7 @@ export default {
                         'Campaign',
                         'Created successfully'
                     )
-                    this.$router.push('/')
+                    this.$router.push({name: "campaign.list"})
                     break
                 case 422:
                     this.validationErrors = response.data.errors

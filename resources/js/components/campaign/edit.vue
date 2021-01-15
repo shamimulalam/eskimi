@@ -8,16 +8,15 @@
                         id="name"
                         label="Name :"
                         label-for="name"
-                        description="Enter campaign name here"
                     >
                         <b-form-input
                             id="name"
                             v-model="campaign.name"
                             type="text"
                         ></b-form-input>
-                        <v-form-invalid-feedback v-if="validationErrors.name">
+                        <span class="text-danger" v-if="validationErrors.name">
                             {{ validationErrors.name[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -27,18 +26,18 @@
                     <b-form-group>
                         <label for="fromDate">From</label>
                         <b-form-datepicker id="fromDate" v-model="campaign.from" class="mb-2"></b-form-datepicker>
-                        <v-form-invalid-feedback v-if="validationErrors.from">
+                        <span class="text-danger" v-if="validationErrors.from">
                             {{ validationErrors.from[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
                 <b-col>
                     <b-form-group>
                         <label for="toDate">To</label>
                         <b-form-datepicker id="toDate" v-model="campaign.to" class="mb-2"></b-form-datepicker>
-                        <v-form-invalid-feedback v-if="validationErrors.to">
+                        <span class="text-danger" v-if="validationErrors.to">
                             {{ validationErrors.to[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -52,9 +51,9 @@
                             id="totalBudget"
                             v-model="campaign.total_budget"
                         ></b-form-input>
-                        <v-form-invalid-feedback v-if="validationErrors.total_budget">
+                        <span class="text-danger" v-if="validationErrors.total_budget">
                             {{ validationErrors.total_budget[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
                 <b-col>
@@ -66,9 +65,9 @@
                             id="dailyBudget"
                             v-model="campaign.daily_budget"
                         ></b-form-input>
-                        <v-form-invalid-feedback v-if="validationErrors.daily_budget">
+                        <span class="text-danger" v-if="validationErrors.daily_budget">
                             {{ validationErrors.daily_budget[0] }}
-                        </v-form-invalid-feedback>
+                        </span>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -98,7 +97,7 @@ export default {
         async getCampaign(){
             const response = await this.callApi(
                 'get',
-                '/campaign/'+this.campaignId
+                '/api/campaign/'+this.campaignId
             );
             if(response.status == 200){
                 this.campaign = response.data
@@ -108,7 +107,7 @@ export default {
             event.preventDefault()
             const response = await this.callApi(
                 'put',
-                '/campaign/'+this.campaignId,
+                '/api/campaign/'+this.campaignId,
                 this.campaign
             );
             switch (response.status){
@@ -119,7 +118,7 @@ export default {
                         'Campaign',
                         'Updated successfully'
                     )
-                    this.$router.push('/')
+                    this.$router.push({name: "campaign.list"})
                     break
                 case 422:
                     this.validationErrors = response.data.errors
