@@ -111,7 +111,7 @@ export default {
                 this.campaign
             );
             switch (response.status){
-                case 201:
+                case 204:
                     this.form = {}
                     this.setFlashMessage(
                         'success',

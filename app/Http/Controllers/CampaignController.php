@@ -22,8 +22,8 @@ class CampaignController extends Controller
             'name'          => 'required|max:255',
             'from'          => 'required|date',
             'to'            => 'required|date',
-            'daily_budget'  => 'required|numeric',
-            'total_budget'  => 'required|numeric',
+            'daily_budget'  => 'required|numeric|min:0',
+            'total_budget'  => 'required|numeric|min:0',
             'creatives'     => 'required',
             'creatives.*'   => 'mimes:jpg,jpeg,png',
         ]);
@@ -63,8 +63,8 @@ class CampaignController extends Controller
             'name'          => 'required|max:255',
             'from'          => 'required|date',
             'to'            => 'required|date',
-            'daily_budget'  => 'required|numeric',
-            'total_budget'  => 'required|numeric'
+            'daily_budget'  => 'required|numeric|min:0',
+            'total_budget'  => 'required|numeric|min:0'
         ]);
         try{
             $campaign               = Campaign::findOrFail($id);

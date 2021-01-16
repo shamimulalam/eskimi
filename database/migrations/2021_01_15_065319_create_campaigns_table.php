@@ -18,8 +18,8 @@ class CreateCampaignsTable extends Migration
             $table->string('name',255);
             $table->date('from');
             $table->date('to');
-            $table->float('total_budget',10,2);
-            $table->float('daily_budget',8,2);
+            $table->unsignedFloat('total_budget',10,2);
+            $table->unsignedFloat('daily_budget',8,2);
             $table->timestamps();
         });
     }
