@@ -89,6 +89,14 @@
                         </span>
                     </b-form-group>
                 </b-col>
+                <b-col>
+                    <span v-if="creativeUrlForPreview.length" v-for="(image, index) in creativeUrlForPreview">
+                        <img :src="image" width="20%">
+                        <b-button variant="danger" @click="removeCreative(index)">Delete</b-button>
+                        <br>
+                    </span>
+
+                </b-col>
             </b-row>
             <br>
             <b-button type="submit" variant="primary">Submit</b-button>
@@ -111,13 +119,15 @@ export default {
                 daily_budget: '',
             },
             files: [],
-            validationErrors : {}
+            validationErrors : {},
+            creativeUrlForPreview: []
         }
     },
     methods: {
         async onSubmit(event) {
             event.preventDefault()
             var formData = new FormData();
+            // append files to form data
             for(let i=0;i<this.files.length;i++) {
                 formData.append('creatives[]', this.files[i])
             }
@@ -167,7 +177,12 @@ export default {
             let files = event.target.files;
             for(var i=0;i<files.length;i++){
                 this.files.push(files[i])
+                this.creativeUrlForPreview.push(URL.createObjectURL(files[i]))
             }
+        },
+        removeCreative(index) {
+            this.files.splice(index,1)
+            this.creativeUrlForPreview.splice(index,1)
         }
     }
 }

@@ -59,7 +59,6 @@ class CampaignController extends Controller
     }
     public function update(Request $request,$id)
     {
-
         $request->validate([
             'name'          => 'required|max:255',
             'from'          => 'required|date',
