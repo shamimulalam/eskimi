@@ -24,19 +24,19 @@
             <b-row>
                 <b-col>
                     <b-form-group>
-                        <label for="fromDate">From</label>
-                        <b-form-datepicker id="fromDate" v-model="form.fromDate" class="mb-2"></b-form-datepicker>
-                        <span class="text-danger" v-if="validationErrors.fromDate">
-                            {{ validationErrors.fromDate[0] }}
+                        <label for="from">From</label>
+                        <b-form-datepicker id="from" v-model="form.from" class="mb-2"></b-form-datepicker>
+                        <span class="text-danger" v-if="validationErrors.from">
+                            {{ validationErrors.from[0] }}
                         </span>
                     </b-form-group>
                 </b-col>
                 <b-col>
                     <b-form-group>
-                        <label for="toDate">To</label>
-                        <b-form-datepicker id="toDate" v-model="form.toDate" class="mb-2"></b-form-datepicker>
-                        <span class="text-danger" v-if="validationErrors.toDate">
-                            {{ validationErrors.toDate[0] }}
+                        <label for="to">To</label>
+                        <b-form-datepicker id="to" v-model="form.to" class="mb-2"></b-form-datepicker>
+                        <span class="text-danger" v-if="validationErrors.to">
+                            {{ validationErrors.to[0] }}
                         </span>
                     </b-form-group>
                 </b-col>
@@ -44,29 +44,29 @@
             <b-row>
                 <b-col>
                     <b-form-group>
-                        <label for="totalBudget">Total Budget</label>
+                        <label for="total_budget">Total Budget</label>
                         <b-form-input
                             type="number"
                             step="0.01"
-                            id="totalBudget"
-                            v-model="form.totalBudget"
+                            id="total_budget"
+                            v-model="form.total_budget"
                         ></b-form-input>
-                        <span class="text-danger" v-if="validationErrors.totalBudget">
-                            {{ validationErrors.totalBudget[0] }}
+                        <span class="text-danger" v-if="validationErrors.total_budget">
+                            {{ validationErrors.total_budget[0] }}
                         </span>
                     </b-form-group>
                 </b-col>
                 <b-col>
                     <b-form-group>
-                        <label for="dailyBudget">Daily Budget</label>
+                        <label for="daily_budget">Daily Budget</label>
                         <b-form-input
                             type="number"
                             step="0.01"
-                            id="dailyBudget"
-                            v-model="form.dailyBudget"
+                            id="daily_budget"
+                            v-model="form.daily_budget"
                         ></b-form-input>
-                        <span class="text-danger" v-if="validationErrors.dailyBudget">
-                            {{ validationErrors.dailyBudget[0] }}
+                        <span class="text-danger" v-if="validationErrors.daily_budget">
+                            {{ validationErrors.daily_budget[0] }}
                         </span>
                     </b-form-group>
                 </b-col>
@@ -105,10 +105,10 @@ export default {
         return {
             form: {
                 name: '',
-                fromDate: '',
-                toDate: '',
-                totalBudget: '',
-                dailyBudget: '',
+                from: '',
+                to: '',
+                total_budget: '',
+                daily_budget: '',
             },
             files: [],
             validationErrors : {}
@@ -124,17 +124,17 @@ export default {
             if(this.form.name != '') {
                 formData.append('name',this.form.name)
             }
-            if(this.form.fromDate != '') {
-                formData.append('fromDate',this.form.fromDate)
+            if(this.form.from != '') {
+                formData.append('from',this.form.from)
             }
-            if(this.form.toDate != '') {
-                formData.append('toDate', this.form.toDate)
+            if(this.form.to != '') {
+                formData.append('to', this.form.to)
             }
-            if(this.form.totalBudget != '') {
-                formData.append('totalBudget', this.form.totalBudget)
+            if(this.form.total_budget != '') {
+                formData.append('total_budget', this.form.total_budget)
             }
-            if(this.form.dailyBudget != '') {
-                formData.append('dailyBudget', this.form.dailyBudget)
+            if(this.form.daily_budget != '') {
+                formData.append('daily_budget', this.form.daily_budget)
             }
             const response = await this.callApi(
                 'post',

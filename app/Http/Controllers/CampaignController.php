@@ -20,21 +20,21 @@ class CampaignController extends Controller
     {
         $request->validate([
             'name'          => 'required|max:255',
-            'fromDate'      => 'required|date',
-            'toDate'        => 'required|date',
-            'dailyBudget'   => 'required|numeric',
-            'totalBudget'   => 'required|numeric',
+            'from'          => 'required|date',
+            'to'            => 'required|date',
+            'daily_budget'  => 'required|numeric',
+            'total_budget'  => 'required|numeric',
             'creatives'     => 'required',
-            'creatives.*'   => 'mimes:jpeg,png',
+            'creatives.*'   => 'mimes:jpg,jpeg,png',
         ]);
         DB::beginTransaction();
         try {
             $campaign               = new Campaign();
             $campaign->name         = $request->name;
-            $campaign->from         = $request->fromDate;
-            $campaign->to           = $request->toDate;
-            $campaign->total_budget = $request->totalBudget;
-            $campaign->daily_budget = $request->dailyBudget;
+            $campaign->from         = $request->from;
+            $campaign->to           = $request->to;
+            $campaign->total_budget = $request->total_budget;
+            $campaign->daily_budget = $request->daily_budget;
             $campaign->save();
 
             foreach ($request->file('creatives') as $index => $creative) {
