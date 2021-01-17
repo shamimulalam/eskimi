@@ -1,61 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://business.eskimi.com/" target="_blank"><img src="https://business.eskimi.com/wp-content/uploads/2020/03/p6CJ3HHrtGWOOyhO18jUqRkiZFQNtnITLMTa5wqa-1.png" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## About Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project is developed for senior full stack PHP developer practical test.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Please click [here](https://drive.google.com/file/d/1LKb73-gQgxSJXL0UJ1oX-n5RF_QK7VYT/view?usp=sharing) for question paper
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technologies
+- PHP
+- Laravel
+- Mysql
+- Docker
+- VueJs
+## Installation Process
+*Docker is available in this project. Please install Docker before start. Click [here](https://www.docker.com/) to know about Docker. For installation guide please follow [this](https://www.docker.com/get-started) link.*
+- __Step 1:__ Clone this project `https://github.com/shamimulalam/eskimi.git` form here. Please add `--recurse-submodules` flag while clone. That will pull **laradock**. Laradock is a full PHP development environment for Docker. 
+    > git clone --recurse-submodules https://github.com/shamimulalam/eskimi.git
+- __Step 2:__ For getting into project directory run  
+    > cd eskimi
+- __Step 3:__ Now create environment file
+    > cp .env.example .env
+- __Step 4:__ Now setup database configuration into .env
+    > sudo nano .env
 
-## Learning Laravel
+        DB_CONNECTION=mysql
+        DB_HOST=mysql
+        DB_PORT=3306
+        DB_DATABASE=eskimi
+        DB_USERNAME=root
+        DB_PASSWORD=root
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  replace DB section with above data. It's highly recommended to create new database user in MySql database with specific database permission and privileges. And use that credential here.
+- __Step 5:__ For get into project docker directory run  
+    > cd laradock
+- __Step 6:__ Create docker environment file by copying env-example file to .env 
+    > cp env-example .env
+- __Step 7:__ Set same db credential in docker environment file.
+    > nano .env
+  
+        MYSQL_VERSION=latest
+        MYSQL_DATABASE=eskimi
+        MYSQL_USER=root
+        MYSQL_PASSWORD=root
+        MYSQL_PORT=33066
+        MYSQL_ROOT_PASSWORD=root
+        MYSQL_ENTRYPOINT_INITDB=./mysql/docker-entrypoint-initdb.d
+- __Step 8:__ Now build docker
+    > docker-compose up -d nginx mysql
+- __Step 9:__ Login mysql container for creating database
+    > docker exec -it laradock_mysql_1 bash
+- __Step 10:__ Login mysql console
+    > mysql -uroot -proot
+- __Step 11:__ Create new database
+    > create database eskimi;
+- __step 12:__ Exit from mysql console
+    > exit
+- __Step 13:__ Exit from mysql container
+    > exit
+- __Step 14:__ Now login into workspace container for application setup
+    > docker exec -it laradock_workspace_1 bash
+- __Step 15:__ Download laravel dependencies 
+    > composer install
+- __Step 16:__ Now create environment key for laravel
+    > php artisan key:generate
+- __Step 17:__ Create soft link with storage folder 
+    > php artisan storage:link
+- __Step 17:__ Now browse http://localhost/ for application
+- __Step 18:__ For system test 
+    > php artisan test
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
 
